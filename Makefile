@@ -9,15 +9,20 @@ RELEASE_APK ?= $(BUILD_DIR)/musirail-release.apk
 PRESET ?= Android
 PACKAGE ?= io.github.bbodin.musirail
 ACTIVITY ?= com.godot.game.GodotAppLauncher
+PRIVATE_SONGS_DIR ?= $(PROJECT_DIR)/songs
+DEVICE_SONGS_DIR ?= /sdcard/Download/Musirail
 
 # Set DEVICE to an adb serial when more than one Android target is connected.
 ADB_DEVICE = $(if $(DEVICE),-s $(DEVICE),)
 
 .PHONY: demo-song test check-public check-godot export-android \
 	export-android-debug export-android-release launch install-android \
-	run-android devices stop-android
+	sync-private-songs run-android devices stop-android
 
-launch: export-android-debug install-android run-android
+launch: export-android-debug
+	"$(MAKE)" --no-print-directory install-android
+	"$(MAKE)" --no-print-directory sync-private-songs
+	"$(MAKE)" --no-print-directory run-android
 
 demo-song:
 	"$(PYTHON)" "$(PROJECT_DIR)/tools/build_demo_song.py"
@@ -46,6 +51,13 @@ export-android-release: check-public
 
 install-android:
 	"$(ADB)" $(ADB_DEVICE) install -r "$(APK)"
+
+sync-private-songs:
+	MUSIRAIL_ADB="$(ADB)" \
+	MUSIRAIL_DEVICE="$(DEVICE)" \
+	MUSIRAIL_PRIVATE_SONGS_DIR="$(PRIVATE_SONGS_DIR)" \
+	MUSIRAIL_DEVICE_SONGS_DIR="$(DEVICE_SONGS_DIR)" \
+		"$(PROJECT_DIR)/tools/push_private_songs.sh"
 
 run-android:
 	"$(ADB)" $(ADB_DEVICE) shell am force-stop "$(PACKAGE)"

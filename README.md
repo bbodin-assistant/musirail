@@ -57,6 +57,13 @@ make check-godot GODOT=/path/to/godot
 make export-android-debug GODOT=/path/to/godot
 ```
 
+For local Android development, `make launch` exports and installs the debug
+APK, copies only the ignored `songs/song_*` workspaces to
+`/sdcard/Download/Musirail`, and starts the app. These audio and cover files
+are then available through Android's native file picker without being bundled
+in the APK. Use `DEVICE=<adb-serial>`, `PRIVATE_SONGS_DIR=<host-directory>`, or
+`DEVICE_SONGS_DIR=<android-directory>` to override the defaults.
+
 The advanced offline chart generator has additional dependencies:
 
 ```bash
