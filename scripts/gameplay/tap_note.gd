@@ -138,13 +138,61 @@ func _draw() -> void:
 	var width_pixels: float = (
 		note_width * gameplay_width
 	)
+	var half_width: float = width_pixels / 2.0
+	var half_height: float = 18.0
 
+	# Soft outer pink glow.
 	draw_rect(
 		Rect2(
-			-width_pixels / 2.0,
-			-18.0,
+			-half_width - 14.0,
+			-half_height - 10.0,
+			width_pixels + 28.0,
+			56.0
+		),
+		Color(1.0, 0.15, 0.55, 0.16)
+	)
+
+	# Brighter glow close to the note.
+	draw_rect(
+		Rect2(
+			-half_width - 7.0,
+			-half_height - 5.0,
+			width_pixels + 14.0,
+			46.0
+		),
+		Color(1.0, 0.32, 0.64, 0.32)
+	)
+
+	# Hot-pink tap body.
+	draw_rect(
+		Rect2(
+			-half_width,
+			-half_height,
 			width_pixels,
 			36.0
 		),
-		Color.WHITE
+		Color(1.0, 0.22, 0.58)
+	)
+
+	# Lighter inner face keeps the tap readable against the glow.
+	var border: float = 4.0
+	draw_rect(
+		Rect2(
+			-half_width + border,
+			-half_height + border,
+			width_pixels - border * 2.0,
+			36.0 - border * 2.0
+		),
+		Color(1.0, 0.55, 0.76)
+	)
+
+	# Small highlight for a stronger neon finish.
+	draw_rect(
+		Rect2(
+			-half_width + 12.0,
+			-half_height + 7.0,
+			width_pixels - 24.0,
+			13.0
+		),
+		Color(1.0, 0.88, 0.95, 0.78)
 	)
