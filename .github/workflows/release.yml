@@ -3,6 +3,7 @@ name: Android release
 on:
   push:
     tags: ["v*.*.*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -19,6 +20,8 @@ jobs:
       image: barichello/godot-ci:4.7.1@sha256:622e5ca81b54cd8038ecf7de5d157b47efc800d7cf635af2eec18a6aee4bab7e
     steps:
       - uses: actions/checkout@v6
+      - name: Trust checkout directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Verify public source tree
         run: tools/check_public_tree.sh
       - name: Require signing secrets
@@ -32,9 +35,17 @@ jobs:
           test -n "${KEYSTORE_PASSWORD}" || { echo "Missing ANDROID_KEYSTORE_PASSWORD" >&2; exit 1; }
           printf '%s' "${KEYSTORE_BASE64}" | base64 --decode > /tmp/musirail-release.keystore
           chmod 600 /tmp/musirail-release.keystore
-      - name: Set Android version from tag
+          keytool -list \
+            -keystore /tmp/musirail-release.keystore \
+            -alias "${KEYSTORE_ALIAS}" \
+            -storepass "${KEYSTORE_PASSWORD}" >/dev/null
+      - name: Set Android version
         run: |
-          version_name="${GITHUB_REF_NAME#v}"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            version_name="${GITHUB_REF_NAME#v}"
+          else
+            version_name="0.0.0-ci.${GITHUB_RUN_NUMBER}"
+          fi
           sed -i -E "s/^version\/code=.*/version\/code=${GITHUB_RUN_NUMBER}/" export_presets.cfg
           sed -i -E "s/^version\/name=.*/version\/name=\"${version_name}\"/" export_presets.cfg
       - name: Export signed release APK
@@ -57,8 +68,12 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
+      - name: Remove signing keystore
+        if: always()
+        run: rm -f /tmp/musirail-release.keystore
 
   publish-release:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     needs: build-release
     runs-on: ubuntu-latest
     permissions:
