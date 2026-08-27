@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://254rhciga02o"]
+
+[ext_resource type="Script" uid="uid://b3rgp1qsanfws" path="res://scripts/main.gd" id="1_iuonh"]
+[ext_resource type="Script" uid="uid://cr052o8hgtk6w" path="res://scripts/gameplay/hit_line.gd" id="4_6q06x"]
+[ext_resource type="Script" uid="uid://cmnfvaojrk2f2" path="res://scripts/gameplay/gameplay_hud.gd" id="4_l3cfh"]
+[ext_resource type="Script" uid="uid://ctqtgtulpk3q3" path="res://scripts/gameplay/pause_menu.gd" id="5_pause"]
+[ext_resource type="Script" uid="uid://8o4bbxq5f387" path="res://scripts/gameplay/perspective_rail.gd" id="6_rail"]
+[ext_resource type="Script" uid="uid://dhhgpmtefh4ni" path="res://scripts/gameplay/hit_effects.gd" id="7_effects"]
+[ext_resource type="PackedScene" path="res://scenes/results/results_screen.tscn" id="8_results"]
+
+[node name="Main" type="Node" unique_id=1022788218]
+script = ExtResource("1_iuonh")
+
+[node name="SongBackground" type="CanvasLayer" parent="." unique_id=1479458673]
+layer = -20
+
+[node name="Cover" type="TextureRect" parent="SongBackground" unique_id=872544678]
+modulate = Color(0.58, 0.62, 0.7, 0.62)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="SongBackground" unique_id=1946226670]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.008, 0.015, 0.04, 0.52)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1534175831]
+bus = &"Music"
+
+[node name="PerspectiveRail" type="Node2D" parent="." unique_id=1470398591]
+z_index = -10
+script = ExtResource("6_rail")
+
+[node name="HitLine" type="Node2D" parent="." unique_id=101987372]
+script = ExtResource("4_6q06x")
+
+[node name="Notes" type="Node2D" parent="." unique_id=1192041058]
+
+[node name="HitEffects" type="Node2D" parent="." unique_id=1322701495]
+z_index = 10
+script = ExtResource("7_effects")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1584571229]
+script = ExtResource("4_l3cfh")
+
+[node name="Root" type="Control" parent="HUD" unique_id=225601475]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LifeBar" type="ProgressBar" parent="HUD/Root" unique_id=1425720885]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 223.0
+offset_right = 1035.0
+offset_bottom = 337.0
+theme_override_font_sizes/font_size = 80
+
+[node name="RecoveryLabel" type="Label" parent="HUD/Root" unique_id=1106625203]
+visible = false
+layout_mode = 0
+offset_left = 1540.0
+offset_top = 145.0
+offset_right = 1850.0
+offset_bottom = 195.0
+theme_override_colors/font_color = Color(0.45, 1, 0.62, 1)
+theme_override_font_sizes/font_size = 30
+text = "RECOVERY ×1"
+horizontal_alignment = 2
+
+[node name="ScoreLabel" type="Label" parent="HUD/Root" unique_id=276268775]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 78.0
+offset_right = 445.0
+offset_bottom = 188.0
+theme_override_font_sizes/font_size = 80
+text = "SCORE 0"
+
+[node name="GradeLabel" type="Label" parent="HUD/Root" unique_id=1588121439]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 50.0
+offset_right = 610.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(0.72, 0.4, 0.46, 1)
+theme_override_colors/font_shadow_color = Color(0.01, 0.02, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_font_sizes/font_size = 118
+text = "F"
+
+[node name="ComboLabel" type="Label" parent="HUD/Root" unique_id=1706564943]
+layout_mode = 0
+offset_left = 1469.0
+offset_top = 192.0
+offset_right = 1839.0
+offset_bottom = 302.0
+theme_override_font_sizes/font_size = 80
+text = "COMBO 0"
+
+[node name="JudgementLabel" type="Label" parent="HUD/Root" unique_id=689866339]
+layout_mode = 0
+offset_left = 787.0
+offset_top = 78.0
+offset_right = 1115.0
+offset_bottom = 188.0
+theme_override_font_sizes/font_size = 80
+text = "PERFECT"
+
+[node name="JudgementTimer" type="Timer" parent="HUD/Root" unique_id=1667621664]
+one_shot = true
+
+[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=184218463]
+layer = 20
+script = ExtResource("5_pause")
+
+[node name="Root" type="Control" parent="PauseMenu" unique_id=49988555]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PauseButton" type="Button" parent="PauseMenu/Root" unique_id=1354811351]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 42.0
+offset_top = -142.0
+offset_right = 252.0
+offset_bottom = -42.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 34
+text = "PAUSE"
+
+[node name="Overlay" type="ColorRect" parent="PauseMenu/Root" unique_id=1892891902]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.02, 0.05, 0.88)
+
+[node name="Center" type="CenterContainer" parent="PauseMenu/Root/Overlay" unique_id=1701459965]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuPanel" type="VBoxContainer" parent="PauseMenu/Root/Overlay/Center" unique_id=1621977414]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="PauseMenu/Root/Overlay/Center/MenuPanel" unique_id=788560170]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 72
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/Root/Overlay/Center/MenuPanel" unique_id=509943190]
+custom_minimum_size = Vector2(560, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="PauseMenu/Root/Overlay/Center/MenuPanel" unique_id=344126376]
+custom_minimum_size = Vector2(560, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "RESTART"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/Root/Overlay/Center/MenuPanel" unique_id=513614685]
+custom_minimum_size = Vector2(560, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "QUIT"
+
+[node name="ConfirmationPanel" type="VBoxContainer" parent="PauseMenu/Root/Overlay/Center" unique_id=638947031]
+visible = false
+custom_minimum_size = Vector2(760, 0)
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="ConfirmationLabel" type="Label" parent="PauseMenu/Root/Overlay/Center/ConfirmationPanel" unique_id=890012219]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "Are you sure?"
+horizontal_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="PauseMenu/Root/Overlay/Center/ConfirmationPanel" unique_id=1434112083]
+layout_mode = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="PauseMenu/Root/Overlay/Center/ConfirmationPanel/Actions" unique_id=1317772093]
+custom_minimum_size = Vector2(330, 110)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "CANCEL"
+
+[node name="ConfirmButton" type="Button" parent="PauseMenu/Root/Overlay/Center/ConfirmationPanel/Actions" unique_id=1972093151]
+custom_minimum_size = Vector2(330, 110)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "CONFIRM"
+
+[node name="CountdownLabel" type="Label" parent="PauseMenu/Root/Overlay" unique_id=1613598812]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 180
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultsScreen" parent="." unique_id=974801213 instance=ExtResource("8_results")]

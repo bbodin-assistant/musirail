@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://iwj8ygqox22r" path="res://scripts/gameplay/flick_note.gd" id="1_flick"]
+
+[node name="FlickNote" type="Node2D"]
+script = ExtResource("1_flick")

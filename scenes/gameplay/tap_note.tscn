@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dcr2y8nm4dmom" path="res://scripts/gameplay/tap_note.gd" id="1_y5iw7"]
+
+[node name="TapNote" type="Node2D" unique_id=1962930106]
+script = ExtResource("1_y5iw7")

@@ -1,0 +1,212 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/config/config_menu.gd" id="1_config"]
+[ext_resource type="Texture2D" path="res://assets/ui/slider_grabber.svg" id="2_grabber"]
+[ext_resource type="Texture2D" path="res://assets/ui/slider_grabber_highlight.svg" id="3_grabber_highlight"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_slider"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.20, 0.25, 0.34, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_grabber_area"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.35, 0.75, 0.95, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ConfigMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_config")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.035, 0.075, 1)
+
+[node name="Center" type="CenterContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="VBoxContainer" parent="Background/Center"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Background/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 68
+text = "CONFIG"
+horizontal_alignment = 1
+
+[node name="Music" type="VBoxContainer" parent="Background/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Background/Center/Panel/Music"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MUSIC VOLUME: 100%"
+
+[node name="Slider" type="HSlider" parent="Background/Center/Panel/Music"]
+custom_minimum_size = Vector2(900, 76)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_highlight")
+theme_override_icons/grabber_disabled = ExtResource("2_grabber")
+theme_override_styles/slider = SubResource("StyleBox_slider")
+theme_override_styles/grabber_area = SubResource("StyleBox_grabber_area")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBox_grabber_area")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Effects" type="VBoxContainer" parent="Background/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Background/Center/Panel/Effects"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "EFFECTS VOLUME: 100%"
+
+[node name="Slider" type="HSlider" parent="Background/Center/Panel/Effects"]
+custom_minimum_size = Vector2(900, 76)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_highlight")
+theme_override_icons/grabber_disabled = ExtResource("2_grabber")
+theme_override_styles/slider = SubResource("StyleBox_slider")
+theme_override_styles/grabber_area = SubResource("StyleBox_grabber_area")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBox_grabber_area")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Timing" type="VBoxContainer" parent="Background/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Background/Center/Panel/Timing"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 38
+text = "TIMING OFFSETS"
+horizontal_alignment = 1
+
+[node name="AudioOffset" type="VBoxContainer" parent="Background/Center/Panel/Timing"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Background/Center/Panel/Timing/AudioOffset"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "AUDIO OFFSET: +0 ms"
+
+[node name="Slider" type="HSlider" parent="Background/Center/Panel/Timing/AudioOffset"]
+custom_minimum_size = Vector2(900, 70)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_highlight")
+theme_override_icons/grabber_disabled = ExtResource("2_grabber")
+theme_override_styles/slider = SubResource("StyleBox_slider")
+theme_override_styles/grabber_area = SubResource("StyleBox_grabber_area")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBox_grabber_area")
+min_value = -250.0
+max_value = 250.0
+step = 1.0
+
+[node name="InputOffset" type="VBoxContainer" parent="Background/Center/Panel/Timing"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Background/Center/Panel/Timing/InputOffset"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "INPUT OFFSET: +0 ms"
+
+[node name="Slider" type="HSlider" parent="Background/Center/Panel/Timing/InputOffset"]
+custom_minimum_size = Vector2(900, 70)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_highlight")
+theme_override_icons/grabber_disabled = ExtResource("2_grabber")
+theme_override_styles/slider = SubResource("StyleBox_slider")
+theme_override_styles/grabber_area = SubResource("StyleBox_grabber_area")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBox_grabber_area")
+min_value = -250.0
+max_value = 250.0
+step = 1.0
+
+[node name="VisualOffset" type="VBoxContainer" parent="Background/Center/Panel/Timing"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Background/Center/Panel/Timing/VisualOffset"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "VISUAL OFFSET: +0 ms"
+
+[node name="Slider" type="HSlider" parent="Background/Center/Panel/Timing/VisualOffset"]
+custom_minimum_size = Vector2(900, 70)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_highlight")
+theme_override_icons/grabber_disabled = ExtResource("2_grabber")
+theme_override_styles/slider = SubResource("StyleBox_slider")
+theme_override_styles/grabber_area = SubResource("StyleBox_grabber_area")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBox_grabber_area")
+min_value = -250.0
+max_value = 250.0
+step = 1.0
+
+[node name="CalibrateButton" type="Button" parent="Background/Center/Panel"]
+custom_minimum_size = Vector2(900, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "CALIBRATE"
+
+[node name="BackButton" type="Button" parent="Background/Center/Panel"]
+custom_minimum_size = Vector2(900, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "BACK"
+
+[node name="MusicPreview" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="EffectsPreview" type="AudioStreamPlayer" parent="."]
+bus = &"Effects"
+
+[node name="MusicPreviewTimer" type="Timer" parent="."]
+wait_time = 0.12
+one_shot = true
+
+[node name="EffectsPreviewTimer" type="Timer" parent="."]
+wait_time = 0.12
+one_shot = true
+
+[node name="MusicStopTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true

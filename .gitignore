@@ -1,0 +1,22 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+/build/
+
+# Local JetBrains IDE configuration.
+/.idea/
+
+# Private song workspaces never belong in the source tree or APK.
+/songs/song_*/
+/demo/audio.wav
+
+# Android signing material and local environment files.
+*.keystore
+*.jks
+.env
+.env.*
+
+# Local Python environment used by the offline chart generator.
+.venv/
+__pycache__/
+*.py[cod]

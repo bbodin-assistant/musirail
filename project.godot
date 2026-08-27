@@ -1,0 +1,52 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Musirail"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Musirail"
+run/main_scene="res://scenes/start_menu/start_menu.tscn"
+config/quit_on_go_back=false
+config/features=PackedStringArray("4.7", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*uid://cryj3vmokd5br"
+InputManager="*uid://cmmxn8dyhr24b"
+JudgementSystem="*uid://h30dtyqww3jb"
+ChartManager="*uid://ckpjydjkummuo"
+ScoreManager="*uid://brysosc56q6a0"
+LifeManager="*uid://cj3fi8mw0nluc"
+NoteManager="*uid://drn8xlh6sj2ku"
+SettingsManager="*res://scripts/managers/settings_manager.gd"
+SongLibrary="*res://scripts/managers/song_library.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

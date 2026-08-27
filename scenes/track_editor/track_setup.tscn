@@ -1,0 +1,190 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/track_editor/track_setup.gd" id="1_setup"]
+
+[node name="TrackSetup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_setup")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.035, 0.075, 1)
+
+[node name="Center" type="CenterContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Form" type="VBoxContainer" parent="Background/Center"]
+custom_minimum_size = Vector2(1720, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Heading" type="Label" parent="Background/Center/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 70
+text = "NEW TRACK"
+horizontal_alignment = 1
+
+[node name="Help" type="Label" parent="Background/Center/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 28
+text = "Choose a song, then record its notes by tapping the rail while it plays."
+horizontal_alignment = 1
+
+[node name="IdentityRow" type="HBoxContainer" parent="Background/Center/Form"]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="TitleField" type="VBoxContainer" parent="Background/Center/Form/IdentityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Background/Center/Form/IdentityRow/TitleField"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "TITLE"
+
+[node name="Edit" type="LineEdit" parent="Background/Center/Form/IdentityRow/TitleField"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+placeholder_text = "Track title"
+
+[node name="ArtistField" type="VBoxContainer" parent="Background/Center/Form/IdentityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Background/Center/Form/IdentityRow/ArtistField"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "ARTIST"
+
+[node name="Edit" type="LineEdit" parent="Background/Center/Form/IdentityRow/ArtistField"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+placeholder_text = "Artist (optional)"
+
+[node name="AssetRow" type="HBoxContainer" parent="Background/Center/Form"]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="AudioChoice" type="HBoxContainer" parent="Background/Center/Form/AssetRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="Button" type="Button" parent="Background/Center/Form/AssetRow/AudioChoice"]
+custom_minimum_size = Vector2(0, 116)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 38
+text = "SELECT SONG"
+
+[node name="Check" type="Label" parent="Background/Center/Form/AssetRow/AudioChoice"]
+visible = false
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 1, 0.55, 1)
+theme_override_font_sizes/font_size = 66
+text = "✓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoverChoice" type="HBoxContainer" parent="Background/Center/Form/AssetRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="Button" type="Button" parent="Background/Center/Form/AssetRow/CoverChoice"]
+custom_minimum_size = Vector2(0, 116)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 38
+text = "SELECT COVER"
+
+[node name="Check" type="Label" parent="Background/Center/Form/AssetRow/CoverChoice"]
+visible = false
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 1, 0.55, 1)
+theme_override_font_sizes/font_size = 66
+text = "✓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DifficultyRow" type="HBoxContainer" parent="Background/Center/Form"]
+custom_minimum_size = Vector2(0, 98)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/Center/Form/DifficultyRow"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "DIFFICULTY"
+vertical_alignment = 1
+
+[node name="Stars" type="HBoxContainer" parent="Background/Center/Form/DifficultyRow"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="StatusLabel" type="Label" parent="Background/Center/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "Title and song are required. Cover is optional."
+horizontal_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="Background/Center/Form"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="StartButton" type="Button" parent="Background/Center/Form/Actions"]
+custom_minimum_size = Vector2(720, 116)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "OPEN RECORDER"
+
+[node name="BackButton" type="Button" parent="Background/Center/Form/Actions"]
+custom_minimum_size = Vector2(520, 116)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+
+[node name="AudioDialog" type="FileDialog" parent="."]
+title = "Select a song"
+size = Vector2i(1100, 720)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ogg, *.mp3, *.wav ; Audio files")
+use_native_dialog = true
+
+[node name="CoverDialog" type="FileDialog" parent="."]
+title = "Select a cover"
+size = Vector2i(1100, 720)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png, *.jpg, *.jpeg, *.webp ; Images")
+use_native_dialog = true

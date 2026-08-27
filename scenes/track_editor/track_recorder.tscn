@@ -1,0 +1,277 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/track_editor/track_recorder.gd" id="1_recorder"]
+[ext_resource type="Script" path="res://scripts/gameplay/perspective_rail.gd" id="2_rail"]
+[ext_resource type="Script" path="res://scripts/gameplay/hit_line.gd" id="3_hit"]
+
+[node name="TrackRecorder" type="Node"]
+script = ExtResource("1_recorder")
+
+[node name="SongBackground" type="CanvasLayer" parent="."]
+layer = -20
+
+[node name="Cover" type="TextureRect" parent="SongBackground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(0.55, 0.62, 0.72, 0.48)
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="SongBackground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.008, 0.015, 0.04, 0.64)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="PerspectiveRail" type="Node2D" parent="."]
+z_index = -10
+script = ExtResource("2_rail")
+
+[node name="HitLine" type="Node2D" parent="."]
+script = ExtResource("3_hit")
+
+[node name="RecordedNotes" type="Node2D" parent="."]
+z_index = 5
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Root" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopBar" type="HBoxContainer" parent="UI/Root"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 34.0
+offset_top = 24.0
+offset_right = -34.0
+offset_bottom = 112.0
+grow_horizontal = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="UI/Root/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 1)
+theme_override_font_sizes/font_size = 31
+text = "TRACK"
+text_overrun_behavior = 3
+
+[node name="Timer" type="Label" parent="UI/Root/TopBar"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "0:00 / 0:00"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="UI/Root/TopBar"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 31
+text = "0 NOTES"
+horizontal_alignment = 1
+
+[node name="CancelButton" type="Button" parent="UI/Root/TopBar"]
+custom_minimum_size = Vector2(220, 82)
+layout_mode = 2
+theme_override_font_sizes/font_size = 29
+text = "CANCEL"
+
+[node name="IntroOverlay" type="ColorRect" parent="UI/Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.01, 0.02, 0.055, 0.88)
+
+[node name="Center" type="CenterContainer" parent="UI/Root/IntroOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="VBoxContainer" parent="UI/Root/IntroOverlay/Center"]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+theme_override_constants/separation = 26
+
+[node name="Title" type="Label" parent="UI/Root/IntroOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 56
+text = "TRACK • NORMAL"
+horizontal_alignment = 1
+
+[node name="Help" type="Label" parent="UI/Root/IntroOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Tap, hold, flick, or drag across the rail while the music plays.\nUse multiple fingers to record simultaneous notes."
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="UI/Root/IntroOverlay/Center/Panel"]
+custom_minimum_size = Vector2(980, 112)
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "START RECORDING"
+
+[node name="CountdownOverlay" type="ColorRect" parent="UI/Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.005, 0.012, 0.04, 0.72)
+
+[node name="Center" type="CenterContainer" parent="UI/Root/CountdownOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Number" type="Label" parent="UI/Root/CountdownOverlay/Center"]
+custom_minimum_size = Vector2(480, 480)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.92, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.1, 0.45, 0.65, 0.8)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_font_sizes/font_size = 260
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultOverlay" type="ColorRect" parent="UI/Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.01, 0.02, 0.055, 0.92)
+
+[node name="Center" type="CenterContainer" parent="UI/Root/ResultOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="VBoxContainer" parent="UI/Root/ResultOverlay/Center"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="UI/Root/ResultOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.72, 1)
+theme_override_font_sizes/font_size = 62
+text = "TRACK SAVED"
+horizontal_alignment = 1
+
+[node name="Summary" type="Label" parent="UI/Root/ResultOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Track saved."
+horizontal_alignment = 1
+
+[node name="ResultButton" type="Button" parent="UI/Root/ResultOverlay/Center/Panel"]
+custom_minimum_size = Vector2(900, 104)
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "OPEN SONG LIST"
+
+[node name="RetryButton" type="Button" parent="UI/Root/ResultOverlay/Center/Panel"]
+custom_minimum_size = Vector2(900, 104)
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "RE-RECORD"
+
+[node name="CancelOverlay" type="ColorRect" parent="UI/Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.005, 0.01, 0.035, 0.94)
+
+[node name="Center" type="CenterContainer" parent="UI/Root/CancelOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="VBoxContainer" parent="UI/Root/CancelOverlay/Center"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+theme_override_constants/separation = 34
+
+[node name="Title" type="Label" parent="UI/Root/CancelOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.28, 1)
+theme_override_font_sizes/font_size = 68
+text = "DISCARD THIS RECORDING?"
+horizontal_alignment = 1
+
+[node name="Help" type="Label" parent="UI/Root/CancelOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.94, 1)
+theme_override_font_sizes/font_size = 34
+text = "Every note recorded in this session will be lost."
+horizontal_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="UI/Root/CancelOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="KeepButton" type="Button" parent="UI/Root/CancelOverlay/Center/Panel/Actions"]
+custom_minimum_size = Vector2(610, 126)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.72, 1)
+theme_override_font_sizes/font_size = 42
+text = "KEEP RECORDING"
+
+[node name="DiscardButton" type="Button" parent="UI/Root/CancelOverlay/Center/Panel/Actions"]
+custom_minimum_size = Vector2(520, 126)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.48, 0.42, 1)
+theme_override_font_sizes/font_size = 42
+text = "DISCARD"

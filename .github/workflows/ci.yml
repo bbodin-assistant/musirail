@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: songs/tools/utils/requirements.txt
+      - name: Install chart-tool dependencies
+        run: python -m pip install -r songs/tools/utils/requirements.txt
+      - name: Run chart-generator tests
+        run: PYTHONPATH=songs/tools python -m unittest discover -s songs/tools/tests
+      - name: Verify deterministic demo package
+        run: |
+          python tools/build_demo_song.py
+          git diff --exit-code -- assets/seed/first_light.musirail
+
+  android-debug:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.1@sha256:622e5ca81b54cd8038ecf7de5d157b47efc800d7cf635af2eec18a6aee4bab7e
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify public source tree
+        run: tools/check_public_tree.sh
+      - name: Show Godot version
+        run: godot --version
+      - name: Import project and check scripts
+        run: godot --headless --path . --editor --quit
+      - name: Test song bootstrap and package round trip
+        env:
+          XDG_DATA_HOME: /tmp/musirail-ci-user-data
+        run: >-
+          godot --headless --path .
+          --scene res://tests/song_library_test.tscn
+      - name: Export debug APK
+        run: |
+          mkdir -p build
+          godot --headless --path . --export-debug Android build/musirail-debug.apk
+          sha256sum build/musirail-debug.apk > build/musirail-debug.apk.sha256
+      - uses: actions/upload-artifact@v7
+        with:
+          name: musirail-debug-${{ github.sha }}
+          path: |
+            build/musirail-debug.apk
+            build/musirail-debug.apk.sha256
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0

@@ -1,0 +1,249 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" uid="uid://b1ifdarpw4wfc" path="res://scripts/song_select/song_select.gd" id="1_select"]
+[ext_resource type="Texture2D" path="res://assets/ui/slider_grabber.svg" id="2_grabber"]
+[ext_resource type="Texture2D" path="res://assets/ui/slider_grabber_highlight.svg" id="3_grabber_highlight"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_slider"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.20, 0.25, 0.34, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_grabber_area"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.35, 0.75, 0.95, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SongSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_select")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.035, 0.047, 0.09, 1)
+
+[node name="Margin" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_right = 90
+theme_override_constants/margin_bottom = 55
+
+[node name="Layout" type="VBoxContainer" parent="Background/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TopBar" type="HBoxContainer" parent="Background/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="BackButton" type="Button" parent="Background/Margin/Layout/TopBar"]
+custom_minimum_size = Vector2(230, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "BACK"
+
+[node name="Title" type="Label" parent="Background/Margin/Layout/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 72
+text = "SELECT A SONG"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Background/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.75, 0.84, 1)
+theme_override_font_sizes/font_size = 30
+text = "Choose a track to begin"
+horizontal_alignment = 1
+
+[node name="SpeedSettings" type="VBoxContainer" parent="Background/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VisibilityLabel" type="Label" parent="Background/Margin/Layout/SpeedSettings"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "NOTE VISIBILITY: 1.10 s"
+horizontal_alignment = 1
+
+[node name="VisibilitySlider" type="HSlider" parent="Background/Margin/Layout/SpeedSettings"]
+custom_minimum_size = Vector2(0, 82)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_highlight")
+theme_override_icons/grabber_disabled = ExtResource("2_grabber")
+theme_override_styles/slider = SubResource("StyleBox_slider")
+theme_override_styles/grabber_area = SubResource("StyleBox_grabber_area")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBox_grabber_area")
+min_value = 0.02
+max_value = 3.0
+step = 0.01
+value = 1.1
+
+[node name="ScaleLabels" type="HBoxContainer" parent="Background/Margin/Layout/SpeedSettings"]
+layout_mode = 2
+
+[node name="FastLabel" type="Label" parent="Background/Margin/Layout/SpeedSettings/ScaleLabels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "FAST · 20 ms"
+
+[node name="Spacer" type="Control" parent="Background/Margin/Layout/SpeedSettings/ScaleLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SlowLabel" type="Label" parent="Background/Margin/Layout/SpeedSettings/ScaleLabels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "SLOW · 3.00 s"
+
+[node name="SongScroll" type="ScrollContainer" parent="Background/Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SongList" type="VBoxContainer" parent="Background/Margin/Layout/SongScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 22
+
+[node name="StatusLabel" type="Label" parent="Background/Margin/Layout"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+
+[node name="DifficultyOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.015, 0.02, 0.05, 0.94)
+
+[node name="Center" type="CenterContainer" parent="DifficultyOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="VBoxContainer" parent="DifficultyOverlay/Center"]
+custom_minimum_size = Vector2(1500, 0)
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="DifficultyOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 64
+text = "SELECT DIFFICULTY"
+horizontal_alignment = 1
+
+[node name="SongLabel" type="Label" parent="DifficultyOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.85, 0.94, 1)
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="DifficultyScroll" type="ScrollContainer" parent="DifficultyOverlay/Center/Panel"]
+custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="DifficultyButtons" type="VBoxContainer" parent="DifficultyOverlay/Center/Panel/DifficultyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="CancelButton" type="Button" parent="DifficultyOverlay/Center/Panel"]
+custom_minimum_size = Vector2(1500, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "BACK"
+
+[node name="DeleteOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.015, 0.02, 0.05, 0.96)
+
+[node name="Center" type="CenterContainer" parent="DeleteOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="VBoxContainer" parent="DeleteOverlay/Center"]
+custom_minimum_size = Vector2(1120, 0)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="DeleteOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.42, 0.4, 1)
+theme_override_font_sizes/font_size = 60
+text = "DELETE TRACK?"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="DeleteOverlay/Center/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.96, 1)
+theme_override_font_sizes/font_size = 34
+text = "This permanently removes the track and its score history."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CancelButton" type="Button" parent="DeleteOverlay/Center/Panel"]
+custom_minimum_size = Vector2(1120, 118)
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "KEEP TRACK"
+
+[node name="ConfirmButton" type="Button" parent="DeleteOverlay/Center/Panel"]
+custom_minimum_size = Vector2(1120, 118)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.42, 0.4, 1)
+theme_override_font_sizes/font_size = 42
+text = "DELETE PERMANENTLY"
